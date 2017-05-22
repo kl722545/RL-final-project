@@ -1,7 +1,6 @@
 import numpy as np
 import Dictionary 
 
-##### Parameter settings ################
 
 ## Vocabulary size ##################
 voc_size = Dictionary.vocabulary_size
@@ -23,9 +22,6 @@ id_list = list(range(1,voc_size+1))
 ## Maximum length of sequence #####
 max_length= 22
 ###################################
-
-#########################################
-
 
 ##### Word to encoding tuple table #####
 table = dict(zip(total_words,id_list))
