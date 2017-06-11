@@ -120,7 +120,7 @@ def handle_action(action):
     else:
         print ('try to input two words action command')
 
-
+"""
 time_step = 5
 RL_environment = HomeWorld()
 
@@ -136,3 +136,4 @@ for i in range(time_step):
     handle_action(input_command)
 
     # print input_command
+"""
