@@ -67,7 +67,7 @@ class Agent:
             self.copy_ops = [tf.assign(t,q.value()) for (q, t) in (Q_network_vars, target_Q_network_vars)]
         with tf.variable_op_scope("train_network"):
             self.train = tf.train.AdamOptimizer().minimize(self.loss, var_list = Q_network_vars)
-    def simulate(self,sess,state,epsilon = 0.9):
+    def simulate(self,sess,state,epsilon = 0.1):
         return sess.run([self.actions, self.objects], {self.w : [state], self.epsilon : epsilon})
     def train(self,sess,minibatch):
         feed_dict = dict(zip([self.w, self.a, self.o, self.r, self.w_next, self.if_ternimal], minibatch))
