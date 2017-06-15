@@ -2,25 +2,21 @@ import numpy
 
 T = 5
 intro = "The home map:\n\
-[LivingRoom]-->[Garden]-->[Kitchen]\n\
+[LivingRoom]----[Garden]----[Kitchen]\n\
     |             |\n\
     |             |\n\
-    V             V\n\
-[Bedroom]   -->[Toilet]\n\
+    |             |\n\
+[Bedroom]-------[Toilet]\n\
 Living Room\n\
-You have entered the living room. You can watch TV here.\n\
-This room has two sofas, chairs and a TV.\n\
+You can watch TV here.\n\
 Garden\n\
-You have arrived at the garden. You can do exercise here.\n\
-This space has a bike, flowers and trees \n\
+You can do exercise here.\n\
 Kitchen\n\
-You have arrived in the kitchen. You can find somthing to eat here.\n\
-This living area has pizza, coke, and ice cream.\n\
-This room has a fridge, oven, and a sink.\n\
+You can find somthing to eat here.\n\
 Bedroom\n\
-You have arrived in the bedroom. You can sleep here.\n\
+You can sleep here.\n\
 Toilet\n\
-You have entered the toilet. You can take bath here.\n\n"
+You can take bath here.\n\n"
 
 # Dictionay all words 
 all_words = ['You','are','not','at','in','the','hungry','sleepy','bored','getting', \
