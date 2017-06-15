@@ -1,15 +1,16 @@
-time_step = 5
-RL_environment = HomeWorld()
+import Environment
+RL_environment = Environment.HomeWorld()
 
-print ('The game is now started')
 RL_environment.new_game()
-for i in range(time_step):
-    if i == 0:
-        agent_location = RL_environment.first_location
-    else:
-        pass
+while True:
+    state = RL_environment.get_current_state()
+    if RL_environment.if_finished():
+        break
+    print(state)
     input_command = input('What do you want to do? : ')
-    print ('agent_location inside for loop: ', agent_location)
-    handle_action(input_command)
+    actions = input_command.strip().split(" ")
+    reward = RL_environment.do_action(*tuple(actions))
+    print("reward : {0}\n".format(reward))
 
-    # print input_command
+
+    
