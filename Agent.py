@@ -18,7 +18,7 @@ class Agent:
         self.a = tf.placeholder(tf.int32, [None, self.max_length , self.vec_dim])
         self.o = tf.placeholder(tf.int32, [None, self.max_length , self.vec_dim])
         self.r = tf.placeholder(tf.float32, [None])
-        self.epsilon = tf.placeholder(tf.float32, [None])
+        self.epsilon = tf.placeholder(tf.float32, [])
         self.if_ternimal = tf.placeholder(tf.float32, [None])
         self.gamma = 0.99
         with tf.variable_scope("Q_network"):
@@ -67,8 +67,8 @@ class Agent:
             self.copy_ops = [tf.assign(t,q.value()) for (q, t) in (Q_network_vars, target_Q_network_vars)]
         with tf.variable_op_scope("train_network"):
             self.train = tf.train.AdamOptimizer().minimize(self.loss, var_list = Q_network_vars)
-    def simulate(self,sess,state):
-        return sess.run([self.actions, self.objects], {self.w : [state]})
+    def simulate(self,sess,state,epsilon = 0.9):
+        return sess.run([self.actions, self.objects], {self.w : [state], self.epsilon : epsilon})
     def train(self,sess,minibatch):
         feed_dict = dict(zip([self.w, self.a, self.o, self.r, self.w_next, self.if_ternimal], minibatch))
         _, loss = sess.run([self.train, self.loss], feed_dict = feed_dict)
