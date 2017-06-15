@@ -19,7 +19,7 @@ Toilet\n\
 You can take bath here.\n\n"
 
 # Dictionay all words 
-all_words = ['You','are','not','at','in','the','hungry','sleepy','bored','getting', \
+all_words = [" ",(0,),'You','are','not','at','in','the','hungry','sleepy','bored','getting', \
              'fat','dirty','going','to','books','class','home','school','living_room','garden', \
              'kitchen','bedroom','toilet','physics','math','music','canteen','field','library','eat', \
              'sleep','watch','go', 'study','take','borrow','attend','north','south','east', \
@@ -28,12 +28,11 @@ all_words = ['You','are','not','at','in','the','hungry','sleepy','bored','gettin
 vocabulary = len(all_words)
 
 # Vector data dimension
-vec_dim = vocabulary + 1
+vec_dim = vocabulary
 seq_len = 20
-seq_num = 4  
+seq_num = 4 
 
-# (1) Quest (2) Location (3) Pre-Action (4) Quest-mislead , Reward
-# Ex : 'You are hungry.You are in the kitchen.You eat something.You are hungry.'
+
 
 
 # "Life of student" setting
@@ -51,15 +50,18 @@ home_quests = ["hungry", "sleepy", "bored", "getting fat", "dirty"]
 
 school_quests = ["school","home","eat","borrow books","attend math class","attend physics class","attend music class"]
 
+
+# (1) Quest (2) Location (3) Pre-Action (4) Quest-mislead , Reward
+# Ex : 'You are hungry.You are in the kitchen.You eat something.You are hungry.'
 home_quest_seq = "You are {0}.\n"
 home_quest_location_seq = "You are in the {0}.\n"
 home_quest_pre_action_seq = "You {0} {1}.\n"
-home_quest_mislead_seq = "You are not {0}."
+home_quest_mislead_seq = "You are not {0}.\n"
 
 school_quest_seq = "You are going to {0}\n"
 school_quest_location_seq = ["You are in the {0}.\n", "You are in the {0} classroom.\n"]
 school_quest_pre_action_seq = "You {0} {1}.\n"
-school_quest_mislead_seq = "You are not going to {0}."
+school_quest_mislead_seq = "You are not going to {0}.\n"
 
 
 home_objects = ["north", "south", "east", "west", "something","bath","TV","exercise",None]
