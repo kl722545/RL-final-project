@@ -1,3 +1,9 @@
+
+# coding: utf-8
+
+# In[1]:
+
+
 import Environment
 import Codec
 import Agent
@@ -7,11 +13,18 @@ import random
 import SPEC
 import numpy as np
 
+
+# In[2]:
+
+
 codec = Codec.Codec()
 RL_environment = Environment.HomeWorld()
 agent = Agent.Agent()
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
+
+
+# In[3]:
 
 
 replay_memory = deque(maxlen = 5000)
@@ -39,8 +52,12 @@ for _ in range(3000 // SPEC.T):
         replay_memory.append(transection)  
 
 
+# In[4]:
+
+
 i = 0
 epsilon = 1
+all_rewards = 0
 for epoch in range(100):
     epsilon *= 0.99
     RL_environment.new_game(verbose = False)
@@ -49,8 +66,10 @@ for epoch in range(100):
         i = (i+1) % 4
         if RL_environment.if_finished():
             replay_memory[-1][5] = True
+            all_rewards += RL_environment.total_reward
             if epoch % 10 == 0:
-                print("epoch:{0:3} overall_reward : {1}".format(epoch,RL_environment.total_reward))
+                print("epoch:{0:3} overall_reward : {1}".format(epoch,all_rewards / 10))
+                all_rewards = 0
             break
         elif new_start:
             state = RL_environment.get_current_state()
@@ -73,6 +92,9 @@ for epoch in range(100):
         replay_memory.append(transection)
 
 
+# In[6]:
+
+
 for i in range(10):
     RL_environment.new_game(verbose = False)
     new_start = True
@@ -93,5 +115,10 @@ for i in range(10):
         reward = RL_environment.do_action(*tuple(actions))
         next_state = RL_environment.get_current_state()
         coded_next_state = codec.encode(next_state)
+
+
+# In[ ]:
+
+
 sess.close()
 
