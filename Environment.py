@@ -19,10 +19,14 @@ class HomeWorld():
         self.home_quests = SPEC.home_quests
         self.T = SPEC.T
         self.t = 0
-    def new_game(self):
-        print ('The new game is now started')
-        print ('Welcome to our Home World!!')
-        print (SPEC.intro)
+    def new_game(self,verbose = True):
+        self.verbose = verbose
+        if self.verbose:
+            print ('The new game is now started')
+            print ('Welcome to our Home World!!')
+            print (SPEC.intro)
+        self.t = 0
+        self.total_reward = 0
         self.current_room = random.choice(self.home_rooms)
         self.current_home_action = "do"
         self.current_home_object = "nothing"
@@ -36,7 +40,8 @@ class HomeWorld():
         SPEC.home_quest_mislead_seq.format(self.current_home_quest_mislead)
     def if_finished(self):
         if self.t == self.T:
-            print("overall_reward : {0}".format(self.total_reward))
+            if self.verbose:
+                print("overall_reward : {0}".format(self.total_reward))
             return True
         return False
     def do_action(self,action,object=None):

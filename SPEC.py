@@ -1,6 +1,6 @@
 import numpy
 
-T = 5
+T = 50
 intro = "The home map:\n\
 [LivingRoom]----[Garden]----[Kitchen]\n\
     |             |\n\
