@@ -4,6 +4,7 @@ RL_environment = Environment.HomeWorld()
 RL_environment.new_game()
 while True:
     state = RL_environment.get_current_state()
+    print(state)
     if RL_environment.if_finished():
         break
     input_command = input('What do you want to do? : ')
