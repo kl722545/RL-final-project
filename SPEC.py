@@ -29,7 +29,7 @@ vocabulary = len(all_words)
 
 # Vector data dimension
 vec_dim = vocabulary
-seq_len = 20
+seq_len = 9
 seq_num = 4 
 
 
