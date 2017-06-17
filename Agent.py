@@ -24,10 +24,12 @@ class Agent:
             self.target_Qsa_next, self.target_Qso_next = self.Q_network(self.w_next)
         self.define_training_param()
         
-    def Q_network(self,w):#tf.nn.dynamic_rnn
+    def Q_network(self,w):
         with tf.variable_scope("Representation_Generator"):
-            x_s, _ = tf.contrib.rnn.static_rnn(tf.contrib.rnn.BasicLSTMCell(self.vec_dim), tf.unstack(w, self.max_length, 1), dtype=tf.float32)
+            x_s, _ = tf.contrib.rnn.static_rnn(tf.contrib.rnn.BasicLSTMCell(self.vec_dim), tf.unstack(w, self.max_length, 1) ,dtype=tf.float32)
             v_s = tf.divide(tf.add_n(x_s),self.max_length)
+            #x_s, _ = tf.nn.dynamic_rnn(tf.contrib.rnn.BasicLSTMCell(self.vec_dim), w ,dtype=tf.float32)
+            #v_s = tf.divide(tf.add_n(tf.unstack(x_s,self.max_length,1)),self.max_length)
         with tf.variable_scope("action_scorer"):
             with tf.variable_scope("Linear1"):
                 W1 = tf.get_variable("Weight",shape = [self.vec_dim, self.hidden_node1],initializer = self.initializer)
