@@ -23,7 +23,7 @@ all_words = [" ",(0,),'You','are','not','at','in','the','hungry','sleepy','bored
              'fat','dirty','going','to','books','class','home','school','living_room','garden', \
              'kitchen','bedroom','toilet','physics','math','music','canteen','field','library','eat', \
              'sleep','watch','go', 'study','take','borrow','attend','north','south','east', \
-             'west','something',"bath","TV","classroom","here","nowhere","do","nothing","."]
+             'west','something',"bath","TV","classroom","exercise","here","nowhere","do","nothing","."]
 
 vocabulary = len(all_words)
 
