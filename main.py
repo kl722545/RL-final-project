@@ -64,6 +64,7 @@ all_rewards = 0
 batch_size = 100
 max_iter = 10000
 reward_list = [0] * max_iter
+all_loss = 0
 for epoch in trange(max_iter):
     epsilon *= 0.9997
     RL_environment.new_game(verbose = False)
@@ -74,8 +75,9 @@ for epoch in trange(max_iter):
             replay_memory[-1][5] = True
             all_rewards += RL_environment.total_reward
             if epoch % 10 == 0:
-                print("epoch:{0:3} overall_reward : {1}".format(epoch,all_rewards / 10))
+                print("epoch:{0:3} overall_reward : {1}, loss : {2}".format(epoch,all_rewards / 10,all_loss/SPEC.T))
                 all_rewards = 0
+                all_loss = 0
             reward_list[epoch] = RL_environment.total_reward
             break
         elif new_start:
@@ -93,6 +95,7 @@ for epoch in trange(max_iter):
         transections = np.array(random.sample(replay_memory,batch_size))
         minibatch = tuple([np.array(transections[:,i].tolist()) for i in range(6)])
         loss = agent.training(sess,minibatch)
+        all_loss += loss
         if i == 0:
             agent.copy_target_Q(sess)
         transection = [coded_state,action[0],object[0],reward,coded_next_state,False]

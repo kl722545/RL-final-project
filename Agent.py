@@ -66,7 +66,7 @@ class Agent:
         Q_network_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,"Q_network")
         target_Q_network_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,"target_Q_network")
         self.copy_ops = [tf.assign(t,q.value()) for q,t in zip(Q_network_vars, target_Q_network_vars)]
-        self.train = tf.train.AdamOptimizer().minimize(self.loss, var_list = Q_network_vars)
+        self.train = tf.train.AdamOptimizer(1e-5).minimize(self.loss, var_list = Q_network_vars)
     def simulate(self,sess,state,epsilon = 0.1):
         return sess.run([self.actions, self.objects], {self.w : state, self.epsilon : epsilon})
     def training(self,sess,minibatch):
