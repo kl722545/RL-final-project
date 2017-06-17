@@ -75,7 +75,7 @@ for epoch in trange(max_iter):
             replay_memory[-1][5] = True
             all_rewards += RL_environment.total_reward
             if epoch % 10 == 0:
-                print("epoch:{0:3} overall_reward : {1}, loss : {2}".format(epoch,all_rewards / 10,all_loss/SPEC.T))
+                print("epoch:{0:3} overall_reward : {1:.4f}, loss : {2:.4f}".format(epoch,all_rewards / 10,sum(all_loss)/len(all_loss)/SPEC.T))
                 all_rewards = 0
                 all_loss = 0
             reward_list[epoch] = RL_environment.total_reward
