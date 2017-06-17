@@ -23,7 +23,7 @@ all_words = [" ",(0,),'You','are','not','at','in','the','hungry','sleepy','bored
              'fat','dirty','going','to','books','class','home','school','living_room','garden', \
              'kitchen','bedroom','toilet','physics','math','music','canteen','field','library','eat', \
              'sleep','watch','go', 'study','take','borrow','attend','north','south','east', \
-             'west','something',"bath","TV","classroom","nowhere","do","nothing","."]
+             'west','something',"bath","TV","classroom","here","nowhere","do","nothing","."]
 
 vocabulary = len(all_words)
 
@@ -64,7 +64,7 @@ school_quest_pre_action_seq = "You {0} {1}.\n"
 school_quest_mislead_seq = "You are not going to {0}.\n"
 
 
-home_objects = ["north", "south", "east", "west", "something","bath","TV","exercise",None]
+home_objects = ["north", "south", "east", "west", "something","bath","TV","exercise","here"]
 school_objects = ["north", "south", "east", "west", "class", "books","something",None]
 
 """
@@ -86,16 +86,18 @@ home_map = {("living_room","go","east") : "garden",\
             ("kitchen","go","west") : "garden"}
 """
 hungry --> kitchen, eat something
-sleepy --> bedroom, sleep None
+sleepy --> bedroom, sleep here
 bored --> livingroom, watch TV
 getting fat --> garden, do exercise
 dirty --> toilet, take bath
 """
 reward_map = {("hungry","kitchen","eat","something") : 3,\
               ("sleepy","bedroom","sleep",None) : 3,\
+              ("sleepy","bedroom","sleep","here") : 3,\
               ("bored","living_room","watch","TV") : 3,\
               ("getting fat","garden","do","exercise") : 3,\
-			  ("getting fat","garden","exercise",None) : 3,\
+              ("getting fat","garden","exercise",None) : 3,\
+              ("getting fat","garden","exercise","here") : 3,\
               ("dirty","toilet","take","bath") : 3}
 
 

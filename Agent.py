@@ -4,8 +4,8 @@ class Agent:
     def __init__ (self):
         self.vec_dim = SPEC.vec_dim
         self.max_length = SPEC.seq_len * SPEC.seq_num
-        self.hidden_node1 = 15
-        self.hidden_node2 = 15
+        self.hidden_node1 = 200
+        self.hidden_node2 = 200
         self.action_num = len(SPEC.home_actions) 
         self.object_num = len(SPEC.home_objects) 
         self.initializer = tf.contrib.layers.xavier_initializer()

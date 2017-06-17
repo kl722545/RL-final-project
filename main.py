@@ -12,7 +12,8 @@ from collections import deque
 import random
 import SPEC
 import numpy as np
-
+import pickle
+import csv
 
 # In[ ]:
 
@@ -59,7 +60,10 @@ saver = tf.train.Saver()
 i = 0
 epsilon = 1
 all_rewards = 0
-for epoch in range(100000):
+batch_size = 100
+max_iter = 100000
+reward_list = [0] * max_iter
+for epoch in range(max_iter):
     epsilon *= 0.999995
     RL_environment.new_game(verbose = False)
     new_start = True
@@ -71,6 +75,7 @@ for epoch in range(100000):
             if epoch % 10 == 0:
                 print("epoch:{0:3} overall_reward : {1}".format(epoch,all_rewards / 10))
                 all_rewards = 0
+            reward_list[epoch] = RL_environment.total_reward
             break
         elif new_start:
             state = RL_environment.get_current_state()
@@ -84,14 +89,14 @@ for epoch in range(100000):
         reward = RL_environment.do_action(*tuple(actions))
         next_state = RL_environment.get_current_state()
         coded_next_state = codec.encode(next_state)
-        transections = np.array(random.sample(replay_memory,1000))
+        transections = np.array(random.sample(replay_memory,batch_size))
         minibatch = tuple([np.array(transections[:,i].tolist()) for i in range(6)])
-        agent.training(sess,minibatch)
+        loss = agent.training(sess,minibatch)
         if i == 0:
             agent.copy_target_Q(sess)
         transection = [coded_state,action[0],object[0],reward,coded_next_state,False]
         replay_memory.append(transection)
-    if epoch % 1000 == 0:
+    if epoch % 1000 == 9:
         saver.save(sess, "./model.ckpt")
         print("model save at {0}".format("./model.ckpt"))
 
@@ -123,6 +128,12 @@ for i in range(10):
 
 # In[ ]:
 
-
+with open("reward.dat","wb") as fp:
+    pickle.dump(reward_list,fp,protocol=pickle.HIGHEST_PROTOCOL)
 sess.close()
 
+"""
+with open("reward.csv", 'w') as fp:
+    wr = csv.writer(fp, quoting=csv.QUOTE_ALL)
+    wr.writerow(reward_list)
+"""
