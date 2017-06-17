@@ -14,6 +14,7 @@ import SPEC
 import numpy as np
 import pickle
 import csv
+from tqdm import trange
 
 # In[ ]:
 
@@ -29,7 +30,7 @@ sess.run(tf.global_variables_initializer())
 
 
 replay_memory = deque(maxlen = 100000)
-for _ in range(3000 // SPEC.T):
+for _ in trange(3000 // SPEC.T):
     RL_environment.new_game(verbose = False)
     new_start = True
     while True:
@@ -61,10 +62,10 @@ i = 0
 epsilon = 1
 all_rewards = 0
 batch_size = 100
-max_iter = 100000
+max_iter = 10000
 reward_list = [0] * max_iter
-for epoch in range(max_iter):
-    epsilon *= 0.999995
+for epoch in trange(max_iter):
+    epsilon *= 0.9997
     RL_environment.new_game(verbose = False)
     new_start = True
     while True:
@@ -96,7 +97,7 @@ for epoch in range(max_iter):
             agent.copy_target_Q(sess)
         transection = [coded_state,action[0],object[0],reward,coded_next_state,False]
         replay_memory.append(transection)
-    if epoch % 1000 == 9:
+    if epoch % 1000 == 999:
         saver.save(sess, "./model.ckpt")
         print("model save at {0}".format("./model.ckpt"))
 
@@ -104,7 +105,7 @@ for epoch in range(max_iter):
 # In[ ]:
 
 
-for i in range(10):
+for i in trange(10):
     RL_environment.new_game(verbose = False)
     new_start = True
     while True:
